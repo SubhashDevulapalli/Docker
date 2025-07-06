@@ -5,6 +5,62 @@ Virtual Machines:
 
 
 
-
+Docker Machine Challeges:
 Docker machine uses Oracle virual Box whose only purpose is to run Docker
+
+Slower than Docker on Linux
+Docker Desktop is released to address this issue.
+
+Docker Desktop:
+Uses much smaller and more tightly integrated virtual Machines
+Automatically handles volume and network port mapping
+Comes with a really nice GUI
+
+Colima, Rancher Desktop and Podan are examples of Docker Desktop alternatives.
+
+Install Docker Desktop from Docker.inc
+
+There are 2 ways to create container
+1. Long way
+2. Short way
+
+1. Long way:
+    Command: docker container create --help
+    -This command gives all the options of creating a container.
+      
+    Creating first container using powershell:
+    command: docker container create hello-world:linux 
+    - This will create container and returns an id of the container
+    - Every container will have an id to uniquely identify
+    - this command creates container but does start them.
+
+    Command: docker ps
+    -This will list all the containers
+    -At this time the above container is not seen because 'docker ps' only returns the active containers.
+
+    Command: docker ps --all
+    - Will return all the containers
+
+    To start the container follow the below command
+    Command: docker container start container_id
+    Ex: docker container start 98693d79856a567d58d504b744bd71013e20f75047c49e11d1a5ccda9a313e8f
+    
+    - Now th go with 'docker ps' command we can see the conatiner status as 'exited'
+
+    Now to see the logs of the container enter below command and with first 2 letters of container_id
+    Command: docker logs 986
+    -This will display the message from the container
+
+    Command: docker container start --attach 986
+    -This will show the terminal result along with starting the container
+
+
+
+2. Short way
+    Command: docker run hello-world:linux
+    - Creates a new one then runs it with attach
+    docker run = docker container create + docker container start + docker container attach
+
+
+
 
