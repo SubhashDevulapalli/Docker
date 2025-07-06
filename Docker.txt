@@ -1,0 +1,10 @@
+Virtual Machines:
+1. Use the hypervisor to emulate real hardware.
+2. Can take up a lot of space.
+3. Require you to install or configure OS
+
+
+
+
+Docker machine uses Oracle virual Box whose only purpose is to run Docker
+
