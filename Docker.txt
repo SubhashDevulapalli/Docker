@@ -78,7 +78,7 @@ Command: docker exec container_id command
 - This will perform the task specified in the command
 Command: docker exec --interactive --tty container_id bash
 - This bash application will start interacting by opening a new session in the terminal and press control-d to exit the session.
-
+- To run this command first the conatiner should be running
 
 
 
