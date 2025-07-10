@@ -1,17 +1,17 @@
-Virtual Machines:
+=>Virtual Machines:
 1. Use the hypervisor to emulate real hardware.
 2. Can take up a lot of space.
 3. Require you to install or configure OS
 
 
 
-Docker Machine Challeges:
+=> Docker Machine Challeges:
 Docker machine uses Oracle virual Box whose only purpose is to run Docker
 
 Slower than Docker on Linux
 Docker Desktop is released to address this issue.
 
-Docker Desktop:
+=> Docker Desktop:
 Uses much smaller and more tightly integrated virtual Machines
 Automatically handles volume and network port mapping
 Comes with a really nice GUI
@@ -20,7 +20,7 @@ Colima, Rancher Desktop and Podan are examples of Docker Desktop alternatives.
 
 Install Docker Desktop from Docker.inc
 
-There are 2 ways to create container
+=> There are 2 ways to create container
 1. Long way
 2. Short way
 
@@ -61,7 +61,7 @@ There are 2 ways to create container
     - Creates a new one then runs it with attach
     docker run = docker container create + docker container start + docker container attach
 
-Creating a new container from DockerFile
+=> Creating a new container from DockerFile
 Command: docker build -t new-docker-image .
 - Creates an image of the docker file you already have
 command: docker run new-docker-image
@@ -73,20 +73,20 @@ Command: docker kill container_id
 Command: docker run -d server_container
 - This will create and starts the container but does not attach the terminal
 
-Interacting with Container:
+=> Interacting with Container:
 Command: docker exec container_id command
 - This will perform the task specified in the command
 Command: docker exec --interactive --tty container_id bash
 - This bash application will start interacting by opening a new session in the terminal and press control-d to exit the session.
 - To run this command first the conatiner should be running
 
-Stopping a container
+=> Stopping a container
 Command: docker stop container_id
 - Stops the container
 Command: docker stop -t 0 container_id
 - stops the container forcifully and may lead to dats loss
 
-Removing a container
+=> Removing a container
 Command: docker rm container_id
 -Removes the container
 Command: docker ps -aq
@@ -94,7 +94,7 @@ Command: docker ps -aq
 Command: docker ps -aq | xargs docker rm
 - Removes all the conatiners. Here frist command feeds the conatiner_ids into the second command and then removes all the conatiners
 
-Removing a image
+=> Removing a image
 Command: docker images
 - Shows all the images present
 Command: docker rmi image_name
@@ -103,6 +103,45 @@ Command: docker rmi image_name
 - Or forcifully remove the image
 
 -  Docker images may take so much data on machine, be sure of deleting unneccessary images
+
+=> Building ports to the container
+- Docker provides the ability to access port within the machine using port binder
+- To build server follow below command
+Command: docker build -t our-web-server-name -f DockerfileName_in_the_directory .
+ex: docker build -t our-web-server -f web-server.Dockerfile .
+- This will create our web server
+Command: docker run -d --name our-web-server 
+- This will run our web server
+Command: docker logs our-web-server
+- This will show the logs from the server
+- This gets the port but when opened it doesn't show anything because no port is assigned in to the container
+
+So to assign a port, it should be done while building it.
+so while building the conatiner give the below command instead of above
+
+Command: docker run -d --name our-web-server -p 5001:5000 our-web-server
+-This will create the conatiner and assign the port
+
+Now give command 'docker ps', which will display extra column stating 'PORTS'
+Now in the browser go to the port given, it will display the data
+
+=> Saving data from container
+Command: docker run --rm --entrypoint sh ubuntu -c "echo 'Hello there.'> /tmp/file && cat /tmp/file"
+- This will create file '/tmp/file' with 'Hello ther .' message
+- But when try open the file using command:'cat /tmp/file', it doesn't show anything.
+- That is because the file is created within the conatiner and outside it cannot be accessed.
+
+Command: docker run --rm --entrypoint sh -v /tmp/change_this_file:/tmp/file ubuntu -c "echo 'Hello .' > /tmp/file && cat /tmp/file"
+- This will create a file and saves in the DockerfileName_in_the_directory 
+
+---
+Docker Hub is the Docker client's default conatiner image repository.
+=> Dcoker Hub
+Steps:
+- Create an account on Docker Hub
+- Store our our-web-server Docker image
+- Create another version of our-web0server
+- Push that version into Docker Hub
 
 
 
