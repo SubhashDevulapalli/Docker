@@ -125,4 +125,24 @@ Command: docker run -d --name our-web-server -p 5001:5000 our-web-server
 Now give command 'docker ps', which will display extra column stating 'PORTS'
 Now in the browser go to the port given, it will display the data
 
+=> Saving data from container
+Command: docker run --rm --entrypoint sh ubuntu -c "echo 'Hello there.'> /tmp/file && cat /tmp/file"
+- This will create file '/tmp/file' with 'Hello ther .' message
+- But when try open the file using command:'cat /tmp/file', it doesn't show anything.
+- That is because the file is created within the conatiner and outside it cannot be accessed.
+
+Command: docker run --rm --entrypoint sh -v /tmp/change_this_file:/tmp/file ubuntu -c "echo 'Hello .' > /tmp/file && cat /tmp/file"
+- This will create a file and saves in the DockerfileName_in_the_directory 
+
+---
+Docker Hub is the Docker client's default conatiner image repository.
+=> Dcoker Hub
+Steps:
+- Create an account on Docker Hub
+- Store our our-web-server Docker image
+- Create another version of our-web0server
+- Push that version into Docker Hub
+
+
+
 
